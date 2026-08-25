@@ -8,6 +8,8 @@ export const ShortcutModal: React.FC = () => {
   if (!isShortcutModalOpen) return null;
 
   const shortcuts = [
+    { key: 'S', description: 'Toggle scenarios drawer (Prober)' },
+    { key: 'A', description: 'Toggle agent run drawer (Prober)' },
     { key: 'Space', description: 'Play / Pause live agent execution' },
     { key: 'R', description: 'Reset execution to beginning' },
     { key: '→ (Arrow Right)', description: 'Step forward one single node' },

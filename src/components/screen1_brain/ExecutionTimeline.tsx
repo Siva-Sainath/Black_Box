@@ -22,12 +22,7 @@ export const ExecutionTimeline: React.FC = () => {
   return (
     <div className="rounded-xl border border-white/[0.08] bg-black/50 backdrop-blur-md p-3.5 shadow-2xl">
       <div className="flex items-center justify-between mb-2.5 px-1">
-        <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400">
-          Cognitive Firing Sequence & Latency Trace
-        </span>
-        <span className="text-[10px] font-mono text-zinc-500">
-          Click any step to inspect SAE feature activation
-        </span>
+        <span className="text-xs font-medium text-zinc-300">Execution timeline</span>
       </div>
 
       <motion.div 

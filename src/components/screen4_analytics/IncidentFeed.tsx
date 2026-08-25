@@ -1,7 +1,8 @@
 import React from 'react';
 import { useAgentRun } from '../../context/AgentRunContext';
 import { StatusBadge } from '../common/StatusBadge';
-import { AlertCircle, ArrowUpRight } from 'lucide-react';
+import { ProviderBadge } from '../common/ProviderBadge';
+import { ArrowUpRight } from 'lucide-react';
 import { cn } from '../../utils/cn';
 
 export const IncidentFeed: React.FC = () => {
@@ -20,11 +21,7 @@ export const IncidentFeed: React.FC = () => {
   return (
     <div className="space-y-3 font-mono">
       <div className="flex items-center justify-between border-b border-white/[0.08] pb-2">
-        <span className="text-xs font-semibold uppercase tracking-wider text-zinc-300 flex items-center gap-1.5">
-          <AlertCircle className="w-3.5 h-3.5 text-zinc-400" />
-          Recent Caught Incidents Feed
-        </span>
-        <span className="text-[10px] text-zinc-500">Live Telemetry Trace</span>
+        <span className="text-sm font-medium text-white">Recent incidents</span>
       </div>
 
       <div className="divide-y divide-white/[0.04]">
@@ -35,11 +32,11 @@ export const IncidentFeed: React.FC = () => {
             className="py-3 px-2 rounded-lg hover:bg-white/[0.02] transition-colors cursor-pointer group flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
           >
             <div className="space-y-1">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <span className="font-semibold text-white group-hover:text-zinc-200 transition-colors">
                   {inc.scenarioName}
                 </span>
-                <span className="text-[10px] text-zinc-500">({inc.id})</span>
+                {inc.provider && <ProviderBadge provider={inc.provider} size="sm" />}
               </div>
               <p className="text-zinc-400 text-[11px] line-clamp-1">"{inc.flagReason}"</p>
               <div className="flex items-center gap-2 text-[10px] text-zinc-500">

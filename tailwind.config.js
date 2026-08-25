@@ -29,7 +29,12 @@ export default {
           'red-dim': 'rgba(239, 68, 68, 0.12)',
           amber: '#f59e0b',
           'amber-dim': 'rgba(245, 158, 11, 0.12)',
-        }
+        },
+        provider: {
+          elevenlabs: '#38bdf8',
+          freshworks: '#a855f7',
+          dodo: '#fbbf24',
+        },
       },
       fontFamily: {
         mono: ['JetBrains Mono', 'Fira Code', 'ui-monospace', 'monospace'],

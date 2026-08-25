@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { useAgentRun } from '../../context/AgentRunContext';
 import { BrainNode3D, RunStep } from '../../types';
 import { BRAIN_NODES_3D, SYNAPSE_CONNECTIONS_3D } from '../../data/mockNodes';
+import { createAnatomicalBrain, createNeuronConnections } from './BrainMeshGenerator';
 import { cn } from '../../utils/cn';
 import {
   Rotate3d,
@@ -126,28 +127,37 @@ export const BrainCanvas3D: React.FC<BrainCanvas3DProps> = ({ onNodeClick }) => 
     // 1. Scene & Atmosphere
     const scene = new THREE.Scene();
     sceneRef.current = scene;
-    scene.fog = new THREE.FogExp2(0x000000, 0.02);
+    scene.background = new THREE.Color(0x000000);
+    scene.fog = new THREE.FogExp2(0x000000, 0.015);
 
     const width = container.clientWidth;
     const height = container.clientHeight;
-    const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 1000);
-    camera.position.set(13, 9, 16);
-    camera.lookAt(0, 0.5, 0);
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+    camera.position.set(8, 6, 10);
+    camera.lookAt(0, 0.2, 0);
     cameraRef.current = camera;
 
     // 2. High Dynamic Range WebGL Renderer
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
-      alpha: true,
+      alpha: false,
       powerPreference: 'high-performance',
     });
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 1.5;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
     rendererRef.current = renderer;
 
     container.appendChild(renderer.domElement);
+
+    // 3. Create anatomical brain
+    const { brainGroup, leftHemisphere, rightHemisphere, cerebellum } = createAnatomicalBrain();
+    scene.add(brainGroup);
+    cortexMeshLeftRef.current = leftHemisphere;
+    cortexMeshRightRef.current = rightHemisphere;
+    cerebellumMeshRef.current = cerebellum;
 
     // 3. Studio Lighting & Specular Rims
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
